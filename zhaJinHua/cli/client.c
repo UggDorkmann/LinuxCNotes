@@ -10,6 +10,16 @@ static void cutOutAliveQuest(char * p,int size){
 	}
 
 }
+int withOnlineQuest(const char* reply){
+    char anchor[5] = {0xAA,0xAA,0xAA,MquestOnline,0};
+    if(strstr(reply,anchor))return 1;
+    return 0;
+}
+char myID = -1;
+int replyOnline(int fd){
+    char msg[5] = {0xAA,0xAA,myID,MreplyOnlineConfirm,0};
+    write(fd,);
+}
 int mainProc(char* p,int size,int servFd){
     return 0;
 }
@@ -34,9 +44,9 @@ int main(int argc,char* argv[]){
     while(1){
         memset(read_buf,0,sizeof(read_buf));
         int r = read(s_fd,read_buf,sizeof(read_buf));
-        if(strstr(read_buf,"alive?\r\n")){// 修改判断在线询问 here!!!
-            write(s_fd,"alive=1\r\n",strlen("alive=1\r\n"));
-            printf("send: alive = 1\n");
+        if(withOnlineQuest(read_buf)){// 修改判断在线询问 
+            replyOnline(s_fd);
+
             cutOutAliveQuest(read_buf,sizeof(read_buf));
         }
         if(strlen(read_buf)>0){

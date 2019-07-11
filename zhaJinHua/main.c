@@ -70,10 +70,13 @@ static void setCliCheckOnlineTime(){
         cliInfos[i].checkOnlineTime = time(NULL);
     }
 }
+/*
+    send: AA AA AA 06
+*/
 void getHeartCheckFrame(char * sendBuf,int len){
     int i = 0;
     for(i=0;i<3;i++)sendBuf[i]=0XAA;
-    sendBuf[3]=0x03;
+    sendBuf[3] = MquestOnline;
 }
 void clearTable(){
 
@@ -125,7 +128,7 @@ static void pmsg(const char* p,int size){
 int withOnlineReply(const char* reply){
     char headAnchor[2] = {0xAA,0xAA};
     char* anchor = strstr(reply,headAnchor);
-    if(anchor && *(anchor+3) == replyOnlineConfirm)return 1;
+    if(anchor && *(anchor+3) == MreplyOnlineConfirm)return 1;
     return 0;
 }
 /*

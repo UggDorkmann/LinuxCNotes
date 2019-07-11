@@ -9,8 +9,10 @@ who:1Byte
 		op: 1Byte                       opDecorate: 4Bytes
             0x01:offline                who is offline(1~4 or fd)
             0x02:newPlayer/online       who has come(1~4 or fd)
-            0x03:online?                NULL
+            0x03:                        
             0x04:deal cards             3 cards(points and colors)
+            0x05:give you an id         id
+            0x06:online?                NULL
     0x1~4:
         op: 1Byte
             0x01:check cards            NULL
