@@ -1,0 +1,23 @@
+server -> client
+
+format:
+0xAAAA who op opDecorate
+
+who:1Byte
+	the one gives instruction (1~4:player1~4 , 0xAA:server)
+	0XAA:
+		op: 1Byte                       opDecorate: 4Bytes
+            0x01:offline                who is offline(1~4 or fd)
+            0x02:newPlayer/online       who has come(1~4 or fd)
+            0x03:online?                NULL
+            0x04:deal cards             3 cards(points and colors)
+    0x1~4:
+        op: 1Byte
+            0x01:check cards            NULL
+            0x02:discard                NULL
+            0x03:try                    cost
+            0x04:follow                 cost
+            0x05:compare                whom
+            0x06:online=1               NULL
+            
+           
