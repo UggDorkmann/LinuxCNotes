@@ -1,7 +1,7 @@
 #include"../all.h"
 int main(int argc,char* argv[]){
 	char buf[128],msg[128];
-	SA4 serv;
+	struct sockaddr_in serv;
 	int s_fd = socket(AF_INET,SOCK_STREAM,0);
 	if(s_fd == -1){
 		perror("socket");
@@ -11,7 +11,7 @@ int main(int argc,char* argv[]){
 	serv.sin_port = htons(5100);
 	
 	inet_pton(AF_INET,argv[1],&serv.sin_addr);
-	int c = connect(s_fd,(SA*)&serv,sizeof(SA4));
+	int c = connect(s_fd,(SA*)&serv,sizeof(struct sockaddr_in));
 	if(c == -1){
 		perror("connect");
 		return -1;
@@ -19,6 +19,7 @@ int main(int argc,char* argv[]){
 	while(1){
 		memset(msg,0,sizeof(msg));
 		gets(msg);
+		printf("write to a socket\n");
 		write(s_fd,msg,strlen(msg));
 		if(strcasecmp(msg,"exit") ==0){
 			printf("all over\n");
