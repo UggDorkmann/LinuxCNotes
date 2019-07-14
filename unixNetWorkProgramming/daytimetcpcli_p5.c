@@ -29,13 +29,9 @@ int main(int argc,char** argv){
         perror("connect:");
         return -1;
     }
-    printf("before while()\n");
-    while(read(sockfd,recvline,MAXLINE) >0 ){
-        if(fputs(recvline,stdout) == EOF){
-            perror("fputs error:");
-        }
+    if(read(sockfd,recvline,MAXLINE) >0 ){
+        printf("recv:%s\n",recvline);    
     }
-    if(n < 0) perror("read");
         
 return 0;
 }

@@ -1,9 +1,11 @@
 #include"all.h"
 int main(int argc,char** argv){
     int listenfd,connfd;
+    socklen_t cliLen = 0;
     int reuse = 0;
-    struct sockaddr_in servaddr;
+    struct sockaddr_in servaddr,cliAddr;
     char buff[MAXLINE] = {0};
+    char buffCliInfo[20] = {0};
     time_t ticks;
 
     listenfd = socket(AF_INET,SOCK_STREAM,0);
@@ -33,8 +35,11 @@ int main(int argc,char** argv){
     printf("before while(1)\n");
     while(1){
         
-        connfd = accept(listenfd,NULL,NULL);
+        connfd = accept(listenfd,(SA*)&cliAddr,&cliLen);
         printf("connfd = %d\n",connfd);
+        printf("connection from %s , port : %d\n",
+            inet_ntop(AF_INET,&cliAddr.sin_addr,buffCliInfo,sizeof(buffCliInfo)),
+            ntohs(cliAddr.sin_port));
         ticks = time(NULL);
         snprintf(buff,sizeof(buff),"%.24s\r\n",ctime(&ticks));
         write(connfd,buff,strlen(buff));
