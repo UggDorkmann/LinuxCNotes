@@ -19,6 +19,8 @@
 
 #include <time.h>
 
+#include <limits.h>
+
 typedef struct sockaddr_in SA4;
 typedef struct sockaddr SA;
 
