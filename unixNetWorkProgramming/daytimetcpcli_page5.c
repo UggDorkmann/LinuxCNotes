@@ -7,7 +7,9 @@ int err_quit(const char* p){
 int main(int argc,char** argv){
 	int sockfd,n;
 	char recvline[MAXLINE + 1];
-    struct sockaddr_in servaddr;
+	char myInfo[50] = {0};
+    struct sockaddr_in servaddr,myAddr;
+	int myAddrLen;
     if(argc !=2) err_quit("need 2 para");
     if((sockfd = socket(AF_INET,SOCK_STREAM,0))<0){
         perror("socket:");
@@ -29,8 +31,13 @@ int main(int argc,char** argv){
         perror("connect:");
         return -1;
     }
+	memset(&myAddr,0,sizeof(myAddr));
+	getsockname(sockfd,&myAddr,&myAddrLen);
+	printf("getsockname,IP: %s , port : %d\n",
+		inet_ntop(AF_INET,&myAddr.sin_addr,myInfo,sizeof(myInfo)),
+		ntohs(myAddr.sin_port));
     if(read(sockfd,recvline,MAXLINE) >0 ){
-        printf("recv:%s\n",recvline);    
+        printf("recv:%s",recvline);
     }
         
 return 0;
