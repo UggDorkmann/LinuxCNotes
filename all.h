@@ -21,6 +21,8 @@
 
 #include <limits.h>
 
+#include <dirent.h>
+
 typedef struct sockaddr_in SA4;
 typedef struct sockaddr SA;
 
