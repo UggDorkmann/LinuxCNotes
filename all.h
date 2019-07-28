@@ -23,6 +23,11 @@
 
 #include <dirent.h>
 
+#include <sys/wait.h>
+
+#include <errno.h>
+
+#include <setjmp.h>
 typedef struct sockaddr_in SA4;
 typedef struct sockaddr SA;
 
